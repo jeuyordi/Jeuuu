@@ -59,7 +59,7 @@
 <body>
     <div class="container">
         <button class="start-btn" onclick="startLove()">Start</button>
-        <div class="message" id="message"></div>
+        <div class="message" id="message">Do you love me? ❤️</div>
         <div id="buttons"></div>
     </div>
 
@@ -67,7 +67,6 @@
         function startLove() {
             document.querySelector('.start-btn').style.display = 'none';
             document.getElementById('message').style.display = 'block';
-            document.getElementById('message').innerText = 'Do you love me? ❤️';
             showOptions();
             createFlowers(); // Flowers start AFTER clicking Start!
         }
