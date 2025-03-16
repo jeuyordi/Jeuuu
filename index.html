@@ -15,9 +15,12 @@
             align-items: center;
             font-family: 'Arial', sans-serif;
             overflow: hidden;
+            position: relative;
         }
         .container {
             text-align: center;
+            z-index: 100;
+            position: relative;
         }
         .start-btn, .yes-btn, .no-btn {
             padding: 15px 30px;
@@ -29,7 +32,6 @@
             cursor: pointer;
             margin: 10px;
             transition: 0.3s;
-            position: relative;
         }
         .start-btn:hover, .yes-btn:hover {
             background: #ff4f78;
@@ -46,6 +48,7 @@
             position: absolute;
             animation: float 6s linear infinite;
             opacity: 0.8;
+            z-index: 1;
         }
         @keyframes float {
             0% { transform: translateY(100vh) rotate(0deg); }
@@ -63,8 +66,10 @@
     <script>
         function startLove() {
             document.querySelector('.start-btn').style.display = 'none';
+            document.getElementById('message').style.display = 'block';
             document.getElementById('message').innerText = 'Do you love me? ❤️';
             showOptions();
+            createFlowers(); // Flowers start AFTER clicking Start!
         }
 
         function showOptions() {
@@ -89,7 +94,6 @@
         function sayILoveYou() {
             document.getElementById('message').innerText = 'I love you too, very much ❤️!';
             document.getElementById('buttons').style.display = 'none';
-            createFlowers();
         }
 
         function createFlowers() {
