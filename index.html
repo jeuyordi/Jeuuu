@@ -86,4 +86,22 @@
             noBtn.style.top = `${y}px`;
         }
 
-        function sayILoveYou()
+        function sayILoveYou() {
+            document.getElementById('message').innerText = 'I love you too, very much ❤️!';
+            document.getElementById('buttons').style.display = 'none';
+            createFlowers();
+        }
+
+        function createFlowers() {
+            for (let i = 0; i < 30; i++) {
+                let flower = document.createElement('div');
+                flower.classList.add('flower');
+                flower.innerHTML = '🌸';
+                flower.style.left = Math.random() * 100 + 'vw';
+                flower.style.animationDuration = (Math.random() * 5 + 5) + 's';
+                document.body.appendChild(flower);
+            }
+        }
+    </script>
+</body>
+</html>
