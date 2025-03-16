@@ -21,12 +21,13 @@
             text-align: center;
             z-index: 100;
             position: relative;
+            padding: 20px;
         }
         .start-btn, .yes-btn, .no-btn {
-            padding: 15px 30px;
+            padding: 12px 24px;
             background: #ff6f91;
             color: white;
-            font-size: 1.5rem;
+            font-size: 1.2rem;
             border: none;
             border-radius: 8px;
             cursor: pointer;
@@ -38,21 +39,39 @@
         }
         .message {
             display: none;
-            font-size: 2rem;
+            font-size: 1.5rem;
             color: #ff3366;
             margin-bottom: 20px;
+            max-width: 90vw;
         }
         .flower {
-            width: 40px;
-            height: 40px;
+            width: 30px;
+            height: 30px;
             position: absolute;
             animation: float 6s linear infinite;
             opacity: 0.8;
             z-index: 1;
+            font-size: 1.5rem;
         }
         @keyframes float {
             0% { transform: translateY(100vh) rotate(0deg); }
             100% { transform: translateY(-20vh) rotate(360deg); }
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .start-btn, .yes-btn, .no-btn {
+                padding: 10px 20px;
+                font-size: 1rem;
+            }
+            .message {
+                font-size: 1.2rem;
+            }
+            .flower {
+                width: 25px;
+                height: 25px;
+                font-size: 1.2rem;
+            }
         }
     </style>
 </head>
@@ -68,7 +87,7 @@
             document.querySelector('.start-btn').style.display = 'none';
             document.getElementById('message').style.display = 'block';
             showOptions();
-            createFlowers(); // Flowers start AFTER clicking Start!
+            createFlowers();
         }
 
         function showOptions() {
@@ -83,8 +102,9 @@
 
         function moveNoButton() {
             const noBtn = document.getElementById('noBtn');
-            const x = Math.random() * (window.innerWidth - 100);
-            const y = Math.random() * (window.innerHeight - 100);
+            const padding = 50;
+            const x = Math.random() * (window.innerWidth - noBtn.offsetWidth - padding);
+            const y = Math.random() * (window.innerHeight - noBtn.offsetHeight - padding);
             noBtn.style.position = 'absolute';
             noBtn.style.left = `${x}px`;
             noBtn.style.top = `${y}px`;
