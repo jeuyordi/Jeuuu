@@ -1,130 +1,416 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>For You ❤️</title>
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            height: 100vh;
-            background: #fef6f5 url('https://www.hotelsogo.com/images/photos/1555053449_Executive%20(2)-min.jpg') repeat;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-family: 'Arial', sans-serif;
-            overflow: hidden;
-            position: relative;
-        }
-        .container {
-            text-align: center;
-            z-index: 100;
-            position: relative;
-            padding: 20px;
-        }
-        .start-btn, .yes-btn, .no-btn {
-            padding: 12px 24px;
-            background: #ff6f91;
-            color: white;
-            font-size: 1.2rem;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            margin: 10px;
-            transition: 0.3s;
-        }
-        .start-btn:hover, .yes-btn:hover {
-            background: #ff4f78;
-        }
-        .message {
-            display: none;
-            font-size: 1.5rem;
-            color: #ff3366;
-            margin-bottom: 20px;
-            max-width: 90vw;
-        }
-        .flower {
-            width: 30px;
-            height: 30px;
-            position: absolute;
-            animation: float 6s linear infinite;
-            opacity: 0.8;
-            z-index: 1;
-            font-size: 1.5rem;
-        }
-        @keyframes float {
-            0% { transform: translateY(100vh) rotate(0deg); }
-            100% { transform: translateY(-20vh) rotate(360deg); }
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Our First Month 🌸</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
 
-        /* Responsive adjustments */
-        @media (max-width: 768px) {
-            .start-btn, .yes-btn, .no-btn {
-                padding: 10px 20px;
-                font-size: 1rem;
-            }
-            .message {
-                font-size: 1.2rem;
-            }
-            .flower {
-                width: 25px;
-                height: 25px;
-                font-size: 1.2rem;
-            }
-        }
-    </style>
+    body {
+      min-height: 100vh;
+      background: #faf9f6;
+      color: #1e293b;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      overflow-x: hidden;
+      padding-bottom: 5rem;
+    }
+
+    /* Scroll progress bar */
+    #progress-bar {
+      position: fixed;
+      top: 0; left: 0;
+      height: 3px;
+      width: 0%;
+      background: #fb7185;
+      z-index: 100;
+      transition: width 0.05s linear;
+    }
+
+    /* Floating blobs */
+    .blob {
+      position: fixed;
+      border-radius: 50%;
+      background: #fecdd3;
+      filter: blur(60px);
+      opacity: 0.2;
+      pointer-events: none;
+      z-index: 0;
+      animation: floatBlob 12s ease-in-out infinite;
+    }
+    @keyframes floatBlob {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-80px); }
+    }
+
+    /* Hero */
+    .hero {
+      height: 92vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      padding: 0 2rem;
+      z-index: 10;
+      text-align: center;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.375rem 1rem;
+      border-radius: 9999px;
+      background: rgba(254,205,211,0.5);
+      border: 1px solid rgba(254,205,211,0.3);
+      color: #f43f5e;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      margin-bottom: 2rem;
+    }
+
+    .hero h1 {
+      font-family: Georgia, 'Times New Roman', serif;
+      font-size: clamp(3.5rem, 10vw, 6rem);
+      line-height: 1.1;
+      margin-bottom: 1.5rem;
+      font-weight: 400;
+    }
+
+    .hero h1 em {
+      color: #fb7185;
+      font-style: italic;
+    }
+
+    .hero p {
+      font-size: 0.9rem;
+      color: #64748b;
+      max-width: 18rem;
+      margin: 0 auto 3rem;
+      line-height: 1.7;
+      font-weight: 300;
+    }
+
+    .scroll-hint {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      animation: bounce 2s ease-in-out infinite;
+    }
+    .scroll-hint span {
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #94a3b8;
+    }
+    .scroll-hint .arrow { color: #fda4af; font-size: 1.2rem; }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(10px); }
+    }
+
+    .hero-fade {
+      position: absolute;
+      left: 0; right: 0; bottom: 0;
+      height: 8rem;
+      background: linear-gradient(to top, #faf9f6, transparent);
+      z-index: 10;
+    }
+
+    /* Timeline */
+    main {
+      max-width: 28rem;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      position: relative;
+      z-index: 10;
+    }
+
+    .memory-card {
+      margin-bottom: 5rem;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .memory-card.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .date-line {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 0.75rem;
+    }
+    .date-line .line {
+      width: 3rem;
+      height: 2px;
+      background: #fda4af;
+    }
+    .date-line .label {
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: #fb7185;
+    }
+
+    .card-body {
+      background: white;
+      border-radius: 1.5rem;
+      padding: 1rem;
+      box-shadow: 0 1px 8px rgba(0,0,0,0.06);
+      border: 1px solid rgba(255,228,230,0.5);
+    }
+
+    .card-img-wrap {
+      position: relative;
+      border-radius: 1rem;
+      overflow: hidden;
+      margin-bottom: 1.5rem;
+      aspect-ratio: 3/4;
+    }
+    .card-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .card-icon {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: rgba(255,255,255,0.95);
+      border-radius: 50%;
+      width: 2.5rem;
+      height: 2.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+    }
+
+    .card-text { padding: 0 0.5rem; }
+    .card-text h3 {
+      font-family: Georgia, 'Times New Roman', serif;
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+      color: #1e293b;
+      font-weight: 400;
+    }
+    .card-text p {
+      font-size: 0.875rem;
+      color: #64748b;
+      line-height: 1.7;
+      font-style: italic;
+      font-weight: 300;
+    }
+
+    /* Footer */
+    footer {
+      padding: 6rem 2rem;
+      text-align: center;
+      position: relative;
+      z-index: 10;
+    }
+    .heart-circle {
+      width: 4rem;
+      height: 4rem;
+      background: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      margin: 0 auto 2rem;
+      border: 1px solid #fff1f2;
+      font-size: 2rem;
+      animation: pulse 2s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.15); opacity: 0.7; }
+    }
+    footer h2 {
+      font-family: Georgia, 'Times New Roman', serif;
+      font-size: 1.875rem;
+      margin-bottom: 1rem;
+      color: #1e293b;
+      font-weight: 400;
+    }
+    footer blockquote {
+      color: #64748b;
+      font-size: 0.875rem;
+      font-style: italic;
+      margin-bottom: 2.5rem;
+      line-height: 1.7;
+    }
+    .footer-label {
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #fda4af;
+      font-weight: 600;
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <button class="start-btn" onclick="startLove()">Start</button>
-        <div class="message" id="message">Do you love me? ❤️</div>
-        <div id="buttons"></div>
+
+  <div id="progress-bar"></div>
+
+  <!-- Blobs -->
+  <div class="blob" style="width:150px;height:150px;left:10%;top:20%;animation-duration:12s;"></div>
+  <div class="blob" style="width:200px;height:200px;left:70%;top:10%;animation-duration:14s;animation-delay:2s;"></div>
+  <div class="blob" style="width:120px;height:120px;left:40%;top:60%;animation-duration:10s;animation-delay:4s;"></div>
+  <div class="blob" style="width:180px;height:180px;left:80%;top:50%;animation-duration:16s;animation-delay:1s;"></div>
+  <div class="blob" style="width:100px;height:100px;left:20%;top:80%;animation-duration:13s;animation-delay:3s;"></div>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div>
+      <div class="badge">♥ 30 Beautiful Days</div>
+      <h1>Our First <br><em>Month</em></h1>
+      <p>Every day with you is a gift, but this first month has been the sweetest surprise of all.</p>
+      <div class="scroll-hint">
+        <span>Scroll through us</span>
+        <span class="arrow">∨</span>
+      </div>
     </div>
+    <div class="hero-fade"></div>
+  </section>
 
-    <script>
-        function startLove() {
-            document.querySelector('.start-btn').style.display = 'none';
-            document.getElementById('message').style.display = 'block';
-            showOptions();
-            createFlowers();
-        }
+  <!-- Memory Cards -->
+  <main id="timeline"></main>
 
-        function showOptions() {
-            const buttonsDiv = document.getElementById('buttons');
-            buttonsDiv.innerHTML = `
-                <button class="yes-btn" onclick="sayILoveYou()">Yes</button>
-                <button class="no-btn" id="noBtn">No</button>
-            `;
-            const noBtn = document.getElementById('noBtn');
-            noBtn.addEventListener('mouseover', moveNoButton);
-        }
+  <!-- Footer -->
+  <footer>
+    <div class="heart-circle">♥</div>
+    <h2>To be continued...</h2>
+    <blockquote>"I'm so glad I captured these moments, but I'm even more glad I got to live them with you."</blockquote>
+    <div class="footer-label">Happy 1st Monthsary, Love</div>
+  </footer>
 
-        function moveNoButton() {
-            const noBtn = document.getElementById('noBtn');
-            const padding = 50;
-            const x = Math.random() * (window.innerWidth - noBtn.offsetWidth - padding);
-            const y = Math.random() * (window.innerHeight - noBtn.offsetHeight - padding);
-            noBtn.style.position = 'absolute';
-            noBtn.style.left = `${x}px`;
-            noBtn.style.top = `${y}px`;
-        }
+  <script>
+    const MEMORIES = [
+      {
+        title: "The Beginning",
+        description: "Our very first picture together. Every journey starts with a single smile, and yours was my favorite.",
+        image: "https://images.unsplash.com/photo-1511739001486-6bfe10ce785f?auto=format&fit=crop&q=80&w=800",
+        icon: "📸",
+        date: "Day 1"
+      },
+      {
+        title: "The Official 'Us'",
+        description: "Our first dinner together after becoming official. A night of celebrations, soft light, and the realization that I'm the luckiest person.",
+        image: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&q=80&w=800",
+        icon: "🍽️",
+        date: "Official Day"
+      },
+      {
+        title: "Secret Jollibee Moments",
+        description: "I was so nervous to ask for a photo, so I silently captured this moment of you. You looked so beautiful just being yourself.",
+        image: "https://images.unsplash.com/photo-1552566626-52f8b828add9?auto=format&fit=crop&q=80&w=800",
+        icon: "🍟",
+        date: "First Foodie Date"
+      },
+      {
+        title: "Roblox & Chill",
+        description: "Playing Roblox while at her friend's party. Just us in our own little digital world amidst the crowd.",
+        image: "https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&q=80&w=800",
+        icon: "🎮",
+        date: "Party Night"
+      },
+      {
+        title: "TikTok & Bites",
+        description: "Making TikToks together before you bit me for the first time... for fun! Playful chaos at its best.",
+        image: "https://images.unsplash.com/photo-1492724441997-5dc865305da7?auto=format&fit=crop&q=80&w=800",
+        icon: "🎬",
+        date: "Playful Vibes"
+      },
+      {
+        title: "Quiet Dreams",
+        description: "Our sleepcall where I stayed up watching you sleep so quietly. The world stopped for a moment.",
+        image: "https://images.unsplash.com/photo-1520206159846-aa96f18f883b?auto=format&fit=crop&q=80&w=800",
+        icon: "🌙",
+        date: "Late Night"
+      },
+      {
+        title: "First Blooms",
+        description: "The first flowers I bought for you. Seeing your smile was better than any bouquet.",
+        image: "https://images.unsplash.com/photo-1490750967868-88aa4486c946?auto=format&fit=crop&q=80&w=800",
+        icon: "🌸",
+        date: "Surprise!"
+      },
+      {
+        title: "Corndog Stop",
+        description: "First time at the corndog cafe. Simple moments that feel like the biggest adventures.",
+        image: "https://images.unsplash.com/photo-1550547660-d9450f859349?auto=format&fit=crop&q=80&w=800",
+        icon: "☕",
+        date: "Cafe Date"
+      },
+      {
+        title: "Basement Rhythms",
+        description: "Night together taking photos at the basement cover session. Music and memories.",
+        image: "https://images.unsplash.com/photo-1514525253344-99a42999da2b?auto=format&fit=crop&q=80&w=800",
+        icon: "🎵",
+        date: "Glow & Sound"
+      },
+      {
+        title: "STAB Send Off",
+        description: "The STAB send off party gig. One last big celebration to wrap up our beautiful first month.",
+        image: "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&q=80&w=800",
+        icon: "🎉",
+        date: "The Finale"
+      }
+    ];
 
-        function sayILoveYou() {
-            document.getElementById('message').innerText = 'I love you more baby heheh❤️!';
-            document.getElementById('buttons').style.display = 'none';
-        }
+    // Build cards
+    const timeline = document.getElementById('timeline');
+    MEMORIES.forEach(m => {
+      timeline.innerHTML += `
+        <div class="memory-card">
+          <div class="date-line">
+            <div class="line"></div>
+            <span class="label">${m.date}</span>
+          </div>
+          <div class="card-body">
+            <div class="card-img-wrap">
+              <img src="${m.image}" alt="${m.title}" referrerpolicy="no-referrer" />
+              <div class="card-icon">${m.icon}</div>
+            </div>
+            <div class="card-text">
+              <h3>${m.title}</h3>
+              <p>"${m.description}"</p>
+            </div>
+          </div>
+        </div>
+      `;
+    });
 
-        function createFlowers() {
-            for (let i = 0; i < 30; i++) {
-                let flower = document.createElement('div');
-                flower.classList.add('flower');
-                flower.innerHTML = '🌸';
-                flower.style.left = Math.random() * 100 + 'vw';
-                flower.style.animationDuration = (Math.random() * 5 + 5) + 's';
-                document.body.appendChild(flower);
-            }
-        }
-    </script>
+    // Scroll progress bar
+    window.addEventListener('scroll', () => {
+      const doc = document.documentElement;
+      const scrolled = doc.scrollTop;
+      const total = doc.scrollHeight - doc.clientHeight;
+      document.getElementById('progress-bar').style.width = (scrolled / total * 100) + '%';
+    });
+
+    // Fade in on scroll
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) e.target.classList.add('visible');
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.memory-card').forEach(card => observer.observe(card));
+  </script>
 </body>
 </html>
